@@ -1,0 +1,25 @@
+apiVersion: networking.k8s.io/v1
+kind: NetworkPolicy
+metadata:
+  name: allow-from-squid
+  namespace: infra
+spec:
+  podSelector:
+    matchLabels:
+      app: squid-proxy
+  ingress:
+  - from:
+    - podSelector: {}
+---
+apiVersion: networking.k8s.io/v1
+kind: NetworkPolicy
+metadata:
+  name: egress-via-squid
+spec:
+  podSelector: {}  # Apply to all pods (or select specific pods)
+  policyTypes:
+  - Egress
+  egress:
+  - ports:
+    - port: 3128  # The Squid proxy port
+
