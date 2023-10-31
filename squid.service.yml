@@ -1,0 +1,12 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: squid-proxy
+  namespace: infra
+spec:
+  selector:
+    app: squid-proxy
+  ports:
+  - protocol: TCP
+    port: 3128  # Match the port specified in the Squid proxy pods
+

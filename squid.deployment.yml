@@ -1,0 +1,32 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: squid-proxy
+  namespace: infra
+spec:
+  replicas: 2  # Adjust as needed
+  selector:
+    matchLabels:
+      app: squid-proxy
+  template:
+    metadata:
+      labels:
+        app: squid-proxy
+    spec:
+      containers:
+      - name: squid
+        image: ubuntu/squid:6.1-23.10_edge
+        ports:
+        - containerPort: 3128  # Adjust port as needed
+---
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: squid-config
+  namespace: infra
+data:
+  squid.conf: |
+    acl localnet src 10.0.0.0/8  # Adjust to match your cluster's network range
+    http_access allow localnet
+    http_port 3128
+
