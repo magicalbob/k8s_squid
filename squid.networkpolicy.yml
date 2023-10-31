@@ -20,13 +20,6 @@ spec:
   policyTypes:
   - Egress
   egress:
-  - to:
-      - namespaceSelector:
-          matchLabels:
-            name: infra  # Match the Squid proxy namespace
-      - podSelector:
-          matchLabels:
-            app: squid-proxy  # Match the Squid proxy pods
   - ports:
     - port: 3128  # The Squid proxy port
 

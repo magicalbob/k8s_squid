@@ -26,7 +26,7 @@ metadata:
   namespace: infra
 data:
   squid.conf: |
-    acl localnet src 10.0.0.0/8  # Adjust to match your cluster's network range
+    acl localnet src 0.0.0.0/0
     http_access allow localnet
     http_port 3128
 
