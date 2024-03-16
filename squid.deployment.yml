@@ -15,7 +15,7 @@ spec:
     spec:
       containers:
       - name: squid
-        image: docker.ellisbs.co.uk:5000/squid-proxy:6.6
+        image: docker.ellisbs.co.uk:5000/k8s_squid:6.6
         ports:
         - containerPort: 3128  # Adjust port as needed
 ---
