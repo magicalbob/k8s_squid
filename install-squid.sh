@@ -47,7 +47,6 @@ fi
 
 # set up squid
 kubectl apply -f squid.deployment.yml
-kubectl apply -f squid.networkpolicy.yml
 kubectl apply -f squid.service.yml
 
 # Wait for pod to be running
