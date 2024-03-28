@@ -1,32 +1,18 @@
-apiVersion: apps/v1
-kind: Deployment
+apiVersion: v1
+kind: Pod
 metadata:
   name: squid-proxy
   namespace: infra
 spec:
-  replicas: 2  # Adjust as needed
-  selector:
-    matchLabels:
-      app: squid-proxy
-  template:
-    metadata:
-      labels:
-        app: squid-proxy
-    spec:
-      containers:
-      - name: squid
-        image: docker.ellisbs.co.uk:5000/k8s_squid:6.6
-        ports:
-        - containerPort: 3128  # Adjust port as needed
----
-apiVersion: v1
-kind: ConfigMap
-metadata:
-  name: squid-config
-  namespace: infra
-data:
-  squid.conf: |
-    acl localnet src 0.0.0.0/0
-    http_access allow localnet
-    http_port 3128
-
+  containers:
+  - name: squid
+    image: docker.ellisbs.co.uk:5000/k8s_squid:6.6a
+    ports:
+    - containerPort: 3128
+  dnsConfig:
+    nameservers:
+    - 8.8.8.8
+    - 8.8.4.4
+  hostNetwork: true  # Use the host's network namespace
+  hostPID: true       # Use the host's PID namespace
+  hostIPC: true       # Use the host's IPC namespace
