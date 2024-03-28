@@ -1,0 +1,15 @@
+[Unit]
+Description=Kubectl Port Forward 3128
+Wants=network-online.target
+After=network-online.target
+
+[Service]
+User=vagrant
+Group=vagrant
+Type=simple
+ExecStart=/bin/bash -c "kubectl port-forward service/squid-proxy -n infra --address 192.168.0.12 3128:3128"
+Restart=always
+RestartSec=5s
+
+[Install]
+WantedBy=multi-user.target
